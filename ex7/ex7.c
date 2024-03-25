@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     char first_name[] = "Zed";
     char last_name[] = "Shaw";
     
-    first_name[3] = "x";
+    //first_name[3] = "x";
 
     printf("You are %d miles away.\n", distance);
     printf("You have %f leverls of power.\n", power);
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     
     // Declare a huge number using a new type, long, for storing big numbers.
     // 这里顺便说一句，我试过把long 换成 int,还是可以运行
-    long universe_of_defects = 1L * 1024L * 1024L * 1024L;
+    long universe_of_defects = 1 * 1024L * 1024L * 1024L;
     //Print out that number using %ld that adds a modifier to the usual %d.
     //Adding l (the letter) tells the program to print the number as a long decimal.
     printf("The entire universe has %ld bugs.\n", universe_of_defects);
