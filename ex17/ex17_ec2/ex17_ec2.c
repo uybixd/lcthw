@@ -103,7 +103,7 @@ struct Connection *Database_open(const char *filename, char mode)
     if (mode == 'c') {
         conn->file = fopen(filename, "w");
         // 这里为什么要初始化 conn->db->rows, 试试没有会怎么样
-        //conn->db->rows = NULL;
+        conn->db->rows = NULL;
     } else {
         conn->file = fopen(filename, "r+");
         if (conn->file) {
@@ -232,6 +232,24 @@ void Database_list(struct Connection *conn)
         }
     }
 }
+void Database_find(struct Connection *conn, char *name)
+{
+    //set a flat for find
+    int found = 0;
+    // take name as parameter and print the ID NAME EMAIL
+    for (int i = 0; i < conn->db->max_rows; i++) {
+        if (strcmp(conn->db->rows[i].name, name) == 0) {
+            struct Address *addr = &conn->db->rows[i];
+            Address_print(addr);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+        die("There is NOT such a name in this database.", conn);
+
+}
 
 int main(int argc, char *argv[])
 {   
@@ -296,6 +314,12 @@ int main(int argc, char *argv[])
             Database_list(conn);
             break;
 
+        case 'f':
+            if (argc != 4)
+                die("You need a name to find.", conn);
+            Database_find(conn, argv[3]);
+            break;
+        
         default:
             die("Invalid action: c=create, g=get, s=set, d=del, l=list",conn);
     }
