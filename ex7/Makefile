@@ -1,4 +1,4 @@
-CFLGS=-Wall	-g
+CFLAGS=-Wall	-g
 
 clean:
 	rm	-f	ex7
